@@ -4,21 +4,19 @@ class ThreadBuyer extends Thread {
     final protected List<String> cars;
     final protected Integer buyerNumber;
     final protected Integer readinessToWaitInSeconds;
-    protected int quantityOfBoughtCars = 0;
+    protected Integer maxCarsNumberPerHands;
 
-    public ThreadBuyer(List<String> cars, Integer buyerNumber, Integer readinessToWaitInSeconds) {
+    public ThreadBuyer(List<String> cars, Integer buyerNumber, Integer readinessToWaitInSeconds, Integer maxCarsNumberPerHands) {
         this.cars = cars;
         this.buyerNumber = buyerNumber;
         this.readinessToWaitInSeconds = readinessToWaitInSeconds;
-    }
-
-    public int getQuantityOfBoughtCars() {
-        return quantityOfBoughtCars;
+        this.maxCarsNumberPerHands = maxCarsNumberPerHands;
     }
 
     @Override
     public void run() {
-        while (!isInterrupted()) {
+        Integer boughtCarsNumber = 0;
+        while (boughtCarsNumber < maxCarsNumberPerHands) {
             synchronized (cars) {
                 System.out.println("Покупатель номер " + buyerNumber + " зашел в автосалон");
                 if (cars.isEmpty()) {
@@ -31,7 +29,7 @@ class ThreadBuyer extends Thread {
                     }
                 }
                 System.out.println("Покупатель " + buyerNumber + " купил автомобиль номер: " + cars.remove(0));
-                quantityOfBoughtCars += 1;
+                boughtCarsNumber += 1;
             }
         }
     }
