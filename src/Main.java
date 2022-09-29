@@ -1,9 +1,9 @@
 public class Main {
 
-    final static protected Integer carsNumber = 10;
-    final static protected Store store = new Store(carsNumber);
-    final static protected Integer produceTimeMs = 2_500;
-    final static protected Integer readinessToWaitInSeconds = 3;
+    final static Integer carsNumber = 10;
+    final static Store store = new Store(carsNumber);
+    final static Integer produceTimeMs = 2_500;
+    final static Integer readinessToWaitInSeconds = 3;
 
     public static void main(String[] args) {
         ThreadGroup threadGroup = new ThreadGroup("group");

@@ -1,7 +1,7 @@
 
 class ThreadBuyer extends Thread {
-    protected final Store store;
-    final protected Integer readinessToWaitInSeconds;
+    final Store store;
+    final Integer readinessToWaitInSeconds;
 
     public ThreadBuyer(ThreadGroup threadGroup, String threadName, Store store, Integer readinessToWaitInSeconds) {
         super(threadGroup, threadName);

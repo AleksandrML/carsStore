@@ -1,7 +1,7 @@
 class ThreadProducer extends Thread {
-    protected final Store store;
-    protected final Integer producingTime;
-    protected final String carsName;
+    final Store store;
+    final Integer producingTime;
+    final String carsName;
 
 
     public ThreadProducer(ThreadGroup threadGroup, String threadName, Store store,
