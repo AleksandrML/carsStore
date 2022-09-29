@@ -1,23 +1,21 @@
-import java.util.LinkedList;
-import java.util.List;
-
 public class Main {
 
-    final static protected List<String> cars = new LinkedList<>();
     final static protected Integer carsNumber = 10;
-    final static protected Integer produceTimePerOneCarInSeconds = 2;
-    final static protected Integer readinessToWaitInSeconds = 1;
-
-    // if we have 2 threads limit every thread with half of work:
-    final static protected Integer limitCarsNumbersPerHands = carsNumber / 2;
+    final static protected Store store = new Store(carsNumber);
+    final static protected Integer produceTimeMs = 2_500;
+    final static protected Integer readinessToWaitInSeconds = 3;
 
     public static void main(String[] args) {
-        Thread threadProducer = new ThreadProducer(cars, carsNumber, produceTimePerOneCarInSeconds);
-        threadProducer.start();
-        ThreadBuyer threadBuyer = new ThreadBuyer(cars, 1, readinessToWaitInSeconds, limitCarsNumbersPerHands);
-        threadBuyer.start();
-        Thread threadBuyer2 = new ThreadBuyer(cars, 2, readinessToWaitInSeconds, limitCarsNumbersPerHands);
-        threadBuyer2.start();
+        ThreadGroup threadGroup = new ThreadGroup("group");
+        new ThreadProducer(threadGroup, "Тред производителя", store, produceTimeMs, "Toyota").start();
+        new ThreadBuyer(threadGroup, "Покупатель-тред 1", store, readinessToWaitInSeconds).start();
+        new ThreadBuyer(threadGroup, "Покупатель-тред 2", store, readinessToWaitInSeconds).start();
+        new ThreadBuyer(threadGroup, "Покупатель-тред 3", store, readinessToWaitInSeconds).start();
+
+        while (!store.isFinishedSellPlan()) {
+        }
+        System.out.println("План выполнен");
+        threadGroup.interrupt();
     }
 
 }
