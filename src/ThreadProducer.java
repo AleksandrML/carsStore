@@ -18,7 +18,7 @@ class ThreadProducer extends Thread {
             try {
                 Thread.sleep(producingTime);
             } catch (InterruptedException e) {
-                System.out.println("Производитель выпустил автомобили " + carsName + " " + Thread.currentThread().getName());
+                System.out.println("Производитель завершил работу " + Thread.currentThread().getName());
                 return;
             }
             store.receiveCar(carsName);

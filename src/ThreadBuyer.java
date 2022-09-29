@@ -19,6 +19,7 @@ class ThreadBuyer extends Thread {
                 return;
             }
             store.sellCar();
+            break;
         }
     }
 }

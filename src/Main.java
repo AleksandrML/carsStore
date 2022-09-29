@@ -8,9 +8,13 @@ public class Main {
     public static void main(String[] args) {
         ThreadGroup threadGroup = new ThreadGroup("group");
         new ThreadProducer(threadGroup, "Тред производителя", store, produceTimeMs, "Toyota").start();
-        new ThreadBuyer(threadGroup, "Покупатель-тред 1", store, readinessToWaitInSeconds).start();
-        new ThreadBuyer(threadGroup, "Покупатель-тред 2", store, readinessToWaitInSeconds).start();
-        new ThreadBuyer(threadGroup, "Покупатель-тред 3", store, readinessToWaitInSeconds).start();
+
+        for (int i = 1; i < 11; i++) {
+            new ThreadBuyer(threadGroup, "Покупатель-тред " + i, store, readinessToWaitInSeconds).start();
+        }
+//        new ThreadBuyer(threadGroup, "Покупатель-тред 1", store, readinessToWaitInSeconds).start();
+//        new ThreadBuyer(threadGroup, "Покупатель-тред 2", store, readinessToWaitInSeconds).start();
+//        new ThreadBuyer(threadGroup, "Покупатель-тред 3", store, readinessToWaitInSeconds).start();
 
         while (!store.isFinishedSellPlan()) {
         }
